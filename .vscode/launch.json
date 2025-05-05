@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ProcessData",
+      "request": "launch",
+      "mainClass": "com.example.formhandler.ProcessData",
+      "projectName": "form-handler"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-FormHandlerApplication<form-handler>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.formhandler.FormHandlerApplication",
+      "projectName": "form-handler",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

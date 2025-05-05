@@ -1,0 +1,1 @@
+based on the whole codebase i want to change the logic of workflow, i want to use the reference folder as the pictures that are availabe so if the picture is found in the folder you should automaticlly send the email instead of asking the user "is the item available"

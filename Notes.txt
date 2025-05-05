@@ -1,0 +1,2 @@
+1# Add AI Model in identifying the images
+2# Change the idea of the project where the code checks the if the image uploaded from the customer is found in the reference folder if yes the email is sent auto if not it is ignored. 

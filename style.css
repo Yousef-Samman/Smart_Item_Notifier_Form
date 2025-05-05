@@ -1,0 +1,258 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+  padding: 50px;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ IKEA Logo Styling */
+.logo-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-container img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ Form Container */
+.form-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  margin: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Form Title */
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0058a3;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* ✅ Labels */
+label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+  font-size: 15px;
+}
+
+/* ✅ Inputs */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="file"],
+select {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 6px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+select:focus {
+  border-color: #0058a3;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 88, 163, 0.1);
+  background-color: #fff;
+}
+
+/* File Input Styling */
+input[type="file"] {
+  padding: 10px;
+  background-color: #fff;
+  border: 2px dashed #e1e1e1;
+  cursor: pointer;
+}
+
+input[type="file"]:hover {
+  border-color: #0058a3;
+}
+
+/* Form Actions */
+.form-actions {
+  text-align: center;
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-actions input[type="submit"] {
+  padding: 14px 30px;
+  background-color: #0058a3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.form-actions input[type="submit"]:hover {
+  background-color: #004a8c;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 88, 163, 0.2);
+}
+
+.inline-logo {
+  text-align: center;
+  margin: 0 0 25px 0;
+}
+
+.inline-logo img {
+  max-width: 180px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Back Button */
+.back-button {
+  display: inline-block;
+  padding: 14px 0;
+  background-color: #fff;
+  color: #0058a3;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  border: 2px solid #0058a3;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+  font-size: 17px;
+  box-sizing: border-box;
+  margin-top: 0;
+}
+
+.back-button:hover {
+  background-color: #e6f0fa;
+  color: #004a8c;
+  border-color: #004a8c;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 88, 163, 0.08);
+}
+
+/* Select Dropdown Styling */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px;
+  padding-right: 40px;
+}
+
+/* Error States */
+input:invalid,
+select:invalid {
+  border-color: #dc3545;
+}
+
+input:invalid:focus,
+select:invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+  
+  .form-container {
+    padding: 25px;
+    margin: 10px;
+  }
+  
+  h2 {
+    font-size: 24px;
+  }
+  
+  .form-actions input[type="submit"],
+  .back-button {
+    padding: 12px 20px;
+  }
+}
+
+/* Landing Page Styles */
+.landing-container {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.landing-logo {
+    max-width: 200px;
+    height: auto;
+}
+
+.options-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.option-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    width: 200px;
+    transition: transform 0.3s ease;
+}
+
+.option-button:hover {
+    transform: translateY(-5px);
+}
+
+.user-button {
+    background-color: #0058a3;
+}
+
+.admin-button {
+    background-color: #ffcc00;
+    color: #0058a3;
+}
+
+.option-button span {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.option-button p {
+    margin: 0;
+    font-size: 14px;
+}
+

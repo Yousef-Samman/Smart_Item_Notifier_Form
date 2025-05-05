@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - IKEA Item Notifier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Admin Dashboard</h2>
+
+        <div class="inline-logo">
+            <img src="Ikea_logo.png" alt="IKEA Logo">
+        </div>
+
+        <div class="admin-actions">
+            <h3>Admin Actions</h3>
+            <button onclick="runEmailProcess()" class="action-button">Run Email Process</button>
+            
+            <div class="upload-section">
+                <h4>Upload Reference Image</h4>
+                <input type="file" id="referenceImage" accept="image/*">
+                <button onclick="uploadReferenceImage()" class="action-button">Upload Image</button>
+            </div>
+        </div>
+
+        <div id="submissionsList">
+            <h3>Recent Submissions</h3>
+            <div id="submissions"></div>
+        </div>
+
+        <div class="form-actions">
+            <button onclick="logout()" class="back-button">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is authenticated
+        async function checkAuth() {
+            try {
+                const response = await fetch('http://127.0.0.1:9091/view-submissions', {
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    window.location.href = 'admin-login.html';
+                }
+            } catch (error) {
+                window.location.href = 'admin-login.html';
+            }
+        }
+
+        // Load submissions
+        async function loadSubmissions() {
+            try {
+                const response = await fetch('http://127.0.0.1:9091/view-submissions', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const submissions = await response.json();
+                    const submissionsDiv = document.getElementById('submissions');
+                    
+                    submissionsDiv.innerHTML = submissions.map(sub => `
+                        <div class="submission-item">
+                            <p><strong>Name:</strong> ${sub.name}</p>
+                            <p><strong>Email:</strong> ${sub.email}</p>
+                            <p><strong>Gender:</strong> ${sub.gender}</p>
+                            <p><strong>Quantity:</strong> ${sub.quantity}</p>
+                            <p><strong>Photo:</strong> ${sub.photo}</p>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading submissions:', error);
+            }
+        }
+
+        // Run email process
+        async function runEmailProcess() {
+            try {
+                const response = await fetch('http://127.0.0.1:9091/admin/run-email-process', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to run email process');
+                }
+
+                const data = await response.json();
+                alert(data.message || 'Email process completed');
+            } catch (error) {
+                alert('Error running email process: ' + error.message);
+            }
+        }
+
+        // Upload reference image
+        async function uploadReferenceImage() {
+            const fileInput = document.getElementById('referenceImage');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select an image to upload');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch('http://127.0.0.1:9091/admin/upload-reference-image', {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to upload image');
+                }
+
+                const data = await response.json();
+                alert(data.message || 'Image uploaded successfully');
+                fileInput.value = ''; // Clear the file input
+            } catch (error) {
+                alert('Error uploading image: ' + error.message);
+            }
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                const response = await fetch('http://127.0.0.1:9091/admin/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    window.location.href = 'admin-login.html';
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+
+        // Check auth and load submissions on page load
+        checkAuth();
+        loadSubmissions();
+    </script>
+
+    <style>
+        .submission-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .submission-item p {
+            margin: 5px 0;
+        }
+
+        #submissionsList {
+            margin: 20px 0;
+        }
+
+        #submissionsList h3 {
+            color: #0058a3;
+            margin-bottom: 15px;
+        }
+
+        .admin-actions {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .admin-actions h3 {
+            color: #0058a3;
+            margin-bottom: 15px;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            background-color: #0058a3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #004a8c;
+            transform: translateY(-2px);
+        }
+
+        .upload-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e1e1;
+        }
+
+        .upload-section h4 {
+            color: #0058a3;
+            margin-bottom: 10px;
+        }
+
+        .upload-section input[type="file"] {
+            margin: 10px 0;
+        }
+    </style>
+</body>
+</html> 

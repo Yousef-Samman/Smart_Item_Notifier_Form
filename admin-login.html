@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - IKEA Item Notifier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <form id="adminLoginForm">
+            <h2>Admin Login</h2>
+
+            <div class="inline-logo">
+                <img src="Ikea_logo.png" alt="IKEA Logo">
+            </div>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <div class="form-actions">
+                <input type="submit" value="Login">
+                <a href="index.html" class="back-button">Back to Home</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('adminLoginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://127.0.0.1:9091/admin/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    credentials: 'include',
+                    body: new URLSearchParams({
+                        'username': username,
+                        'password': password
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Login successful!');
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    alert(data.message || 'Login failed. Please check your credentials.');
+                }
+            } catch (error) {
+                alert('An error occurred during login. Please try again.');
+                console.error('Login error:', error);
+            }
+        });
+    </script>
+</body>
+</html> 
