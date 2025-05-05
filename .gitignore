@@ -9,4 +9,11 @@ form-handler/src/main/resources/application.properties
 # Ignore model.zip and compiled outputs
 form-handler/target/
 form-handler/src/main/resources/model/model.zip
+# Maven and build output
+*.class
+# IDE settings
+.vscode/
+.idea/
+*.iml
+
 
