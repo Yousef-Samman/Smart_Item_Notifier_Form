@@ -1,3 +1,12 @@
+# Ignore all build artifacts and large files
+form-handler/target/
+form-handler/uploads/
+*.zip
+*.jar
 # Sensitive config
 form-handler/src/main/resources/application.properties 
 .env 
+# Ignore model.zip and compiled outputs
+form-handler/target/
+form-handler/src/main/resources/model/model.zip
+
