@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class FormController {
 
     private final List<Map<String, Object>> submittedData = new CopyOnWriteArrayList<>();
+
+    @Autowired
+    private AIService aiService;
 
     @PostMapping("/submit")
     public ResponseEntity<String> handleForm(
@@ -42,19 +46,24 @@ public class FormController {
         Files.copy(photo.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
         System.out.println("Saved image: " + imagePath.toAbsolutePath());
 
-        // Save to CSV
-        String csvLine = String.join(",", name, email, gender, String.valueOf(quantity), imageName) + "\n";
+        // AI prediction
+        String predictedLabel = aiService.predictLabelForImage(imagePath.toString());
+        System.out.println("[AI Prediction] Label: " + predictedLabel);
+
+        // Save to CSV (add label as last column)
+        String csvLine = String.join(",", name, email, gender, String.valueOf(quantity), imageName, predictedLabel) + "\n";
         Path csvPath = Paths.get("data", "submissions.csv");
         Files.createDirectories(csvPath.getParent());
         Files.write(csvPath, csvLine.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
-        // Add to in-memory list
+        // Add to in-memory list (include label)
         Map<String, Object> submission = Map.of(
                 "name", name,
                 "email", email,
                 "gender", gender,
                 "quantity", quantity,
-                "photo", imageName
+                "photo", imageName,
+                "label", predictedLabel
         );
         submittedData.add(submission);
 
